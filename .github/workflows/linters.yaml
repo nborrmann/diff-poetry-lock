@@ -1,4 +1,10 @@
-  deps:
+name: Build and Check
+on:
+  pull_request:
+
+
+jobs:
+  build-check:
     runs-on: ubuntu-latest
     name: Dependencies
     timeout-minutes: 15
