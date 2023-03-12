@@ -1,4 +1,4 @@
-name: 'poetry'
+name: 'Diff poetry.lock'
 description: 'Run poetry show on PRs'
 branding:
   icon: 'message-circle'
