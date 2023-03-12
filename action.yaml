@@ -1,5 +1,5 @@
 name: 'Diff poetry.lock'
-description: 'Run poetry show on PRs'
+description: 'A Github Action that posts a summary of all changes within the poetry.lock file to a pull request'
 branding:
   icon: 'message-circle'
   color: 'blue'
