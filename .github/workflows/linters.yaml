@@ -1,0 +1,32 @@
+  deps:
+    runs-on: ubuntu-latest
+    name: Dependencies
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        if: '!inputs.skip-checkout'
+        uses: actions/checkout@v3
+      - name: Setup python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: '1.4.0'
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      - name: Configure setup tools for poetry
+        if: inputs.setuptools-version
+      - name: Install dependencies
+        run: poetry install
+      - name: Black
+        run: poetry run black --check .
+      - name: Ruff
+        run: poetry run ruff .
+      - name: Mypy
+        run: poetry run mypy .
+      - name: Pytest
+        run: poetry run pytest .
+
