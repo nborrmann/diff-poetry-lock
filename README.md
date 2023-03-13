@@ -15,7 +15,7 @@ Simply add the following step to your Github Action:
 ```yaml
     steps:
       - name: Diff poetry.lock
-        uses: nborrmann/diff-poetry-lock
+        uses: nborrmann/diff-poetry-lock@main
 ```
 
 When the diff changes during the lifetime of a pull request, the original comment will be updated (or deleted in case
