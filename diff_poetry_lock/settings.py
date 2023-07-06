@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    event_name: str = Field(validation_alias="github_event_name", default="poetry.lock")  # must be 'pull_request'
+    event_name: str = Field(validation_alias="github_event_name")  # must be 'pull_request'
     ref: str = Field(validation_alias="github_ref")
     repository: str = Field(validation_alias="github_repository")
     token: str = Field(validation_alias="input_github_token")
