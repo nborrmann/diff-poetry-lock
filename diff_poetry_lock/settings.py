@@ -17,7 +17,7 @@ class Settings(BaseSettings):
         try:
             super().__init__(**values)
         except ValidationError as ex:
-            if e1 := next(e.exc for e in ex.raw_errors if e.loc_tuple() == ("event_name",)):  # type: ignore[union-attr]
+            if e1 := next(f"{e['loc']} - {e['msg']}" for e in ex.errors() if e['loc'] == ("github_event_name",)):  # type: ignore[union-attr]
                 # event_name is not 'pull_request' - we fail early
                 print(str(e1), file=sys.stderr)
                 sys.exit(0)
