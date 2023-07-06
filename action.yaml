@@ -1,4 +1,4 @@
-name: 'Diff poetry.lock'
+name: 'forked Diff poetry.lock'
 description: 'A Github Action that posts a summary of all changes within the poetry.lock file to a pull request'
 branding:
   icon: 'message-circle'
