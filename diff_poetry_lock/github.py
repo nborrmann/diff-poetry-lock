@@ -4,7 +4,7 @@ from requests import Response
 
 from diff_poetry_lock.settings import Settings
 
-MAGIC_COMMENT_IDENTIFIER = "<!-- posted by Github Action nborrmann/diff-poetry-lock -->\n\n"
+MAGIC_COMMENT_IDENTIFIER = "<!-- posted by Github Action FullFatBart/diff-poetry-lock -->\n\n"
 MAGIC_BOT_USER_ID = 41898282
 
 
