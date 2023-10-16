@@ -131,7 +131,7 @@ def test_diff_no_changes() -> None:
 def test_file_loading_missing_file_base_ref(cfg: Settings) -> None:
     with requests_mock.Mocker() as m:
         m.get(
-            f"https://api.github.com/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.base_ref}",
+            f"{cfg.api_url}/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.base_ref}",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
             status_code=404,
         )
@@ -143,12 +143,12 @@ def test_file_loading_missing_file_base_ref(cfg: Settings) -> None:
 def test_file_loading_missing_file_head_ref(cfg: Settings, data1: bytes) -> None:
     with requests_mock.Mocker() as m:
         m.get(
-            f"https://api.github.com/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.base_ref}",
+            f"{cfg.api_url}/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.base_ref}",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
             content=data1,
         )
         m.get(
-            f"https://api.github.com/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.ref}",
+            f"{cfg.api_url}/repos/{cfg.repository}/contents/{cfg.lockfile_path}?ref={cfg.ref}",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
             status_code=404,
         )
@@ -169,7 +169,7 @@ def test_e2e_no_diff_existing_comment(cfg: Settings, data1: bytes) -> None:
         ]
         mock_list_comments(m, cfg, comments)
         m.delete(
-            f"https://api.github.com/repos/{cfg.repository}/issues/comments/1337",
+            f"{cfg.api_url}/repos/{cfg.repository}/issues/comments/1337",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
         )
 
@@ -193,7 +193,7 @@ def test_e2e_diff_inexisting_comment(cfg: Settings, data1: bytes, data2: bytes) 
         mock_get_file(m, cfg, data2, cfg.ref)
         mock_list_comments(m, cfg, [])
         m.post(
-            f"https://api.github.com/repos/{cfg.repository}/issues/{cfg.pr_num()}/comments",
+            f"{cfg.api_url}/repos/{cfg.repository}/issues/{cfg.pr_num()}/comments",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
             json={"body": f"{MAGIC_COMMENT_IDENTIFIER}{summary}"},
         )
@@ -232,7 +232,7 @@ def test_e2e_diff_existing_comment_different_data(cfg: Settings, data1: bytes, d
         ]
         mock_list_comments(m, cfg, comments)
         m.patch(
-            f"https://api.github.com/repos/{cfg.repository}/issues/comments/1337",
+            f"{cfg.api_url}/repos/{cfg.repository}/issues/comments/1337",
             headers={"Authorization": f"Bearer {cfg.token}", "Accept": "application/vnd.github.raw"},
             json={"body": f"{MAGIC_COMMENT_IDENTIFIER}{summary}"},
         )
@@ -247,7 +247,7 @@ def load_file(filename: str) -> bytes:
 
 def mock_list_comments(m: Mocker, s: Settings, response_json: list[dict[Any, Any]]) -> None:
     m.get(
-        f"https://api.github.com/repos/{s.repository}/issues/{s.pr_num()}/comments?per_page=100&page=1",
+        f"{s.api_url}/repos/{s.repository}/issues/{s.pr_num()}/comments?per_page=100&page=1",
         headers={"Authorization": f"Bearer {s.token}", "Accept": "application/vnd.github.raw"},
         json=response_json,
     )
@@ -255,7 +255,7 @@ def mock_list_comments(m: Mocker, s: Settings, response_json: list[dict[Any, Any
 
 def mock_get_file(m: Mocker, s: Settings, data: bytes, ref: str) -> None:
     m.get(
-        f"https://api.github.com/repos/{s.repository}/contents/{s.lockfile_path}?ref={ref}",
+        f"{s.api_url}/repos/{s.repository}/contents/{s.lockfile_path}?ref={ref}",
         headers={"Authorization": f"Bearer {s.token}", "Accept": "application/vnd.github.raw"},
         content=data,
     )
@@ -273,4 +273,5 @@ def create_settings(
         token=token,
         base_ref="main",
         lockfile_path=lockfile_path,
+        api_url="http://localhost/github_api",
     )

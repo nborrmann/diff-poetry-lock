@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     token: str = Field(env="input_github_token")
     base_ref: str = Field(env="github_base_ref")
     lockfile_path: str = Field(env="input_lockfile_path", default="poetry.lock")
+    api_url: str = Field(env="github_api_url", default="https://api.github.com")
 
     def __init__(self, **values: Any) -> None:  # noqa: ANN401
         try:
