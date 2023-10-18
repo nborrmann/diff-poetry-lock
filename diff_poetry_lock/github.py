@@ -31,7 +31,7 @@ class GithubApi:
             return
 
         r = self.session.post(
-            f"https://api.github.com/repos/{self.s.repository}/issues/{self.s.pr_num()}/comments",
+            f"{self.s.api_url}/repos/{self.s.repository}/issues/{self.s.pr_num()}/comments",
             headers={"Authorization": f"Bearer {self.s.token}", "Accept": "application/vnd.github+json"},
             json={"body": f"{MAGIC_COMMENT_IDENTIFIER}{comment}"},
             timeout=10,
@@ -40,7 +40,7 @@ class GithubApi:
 
     def update_comment(self, comment_id: int, comment: str) -> None:
         r = self.session.patch(
-            f"https://api.github.com/repos/{self.s.repository}/issues/comments/{comment_id}",
+            f"{self.s.api_url}/repos/{self.s.repository}/issues/comments/{comment_id}",
             headers={"Authorization": f"Bearer {self.s.token}", "Accept": "application/vnd.github+json"},
             json={"body": f"{MAGIC_COMMENT_IDENTIFIER}{comment}"},
             timeout=10,
@@ -51,7 +51,7 @@ class GithubApi:
         all_comments, comments, page = [], None, 1
         while comments is None or len(comments) == 100:  # noqa: PLR2004
             r = self.session.get(
-                f"https://api.github.com/repos/{self.s.repository}/issues/{self.s.pr_num()}/comments",
+                f"{self.s.api_url}/repos/{self.s.repository}/issues/{self.s.pr_num()}/comments",
                 params={"per_page": 100, "page": page},
                 headers={"Authorization": f"Bearer {self.s.token}", "Accept": "application/vnd.github+json"},
                 timeout=10,
@@ -64,7 +64,7 @@ class GithubApi:
 
     def get_file(self, ref: str) -> Response:
         r = self.session.get(
-            f"https://api.github.com/repos/{self.s.repository}/contents/{self.s.lockfile_path}",
+            f"{self.s.api_url}/repos/{self.s.repository}/contents/{self.s.lockfile_path}",
             params={"ref": ref},
             headers={"Authorization": f"Bearer {self.s.token}", "Accept": "application/vnd.github.raw"},
             timeout=10,
@@ -77,7 +77,7 @@ class GithubApi:
 
     def delete_comment(self, comment_id: int) -> None:
         r = self.session.delete(
-            f"https://api.github.com/repos/{self.s.repository}/issues/comments/{comment_id}",
+            f"{self.s.api_url}/repos/{self.s.repository}/issues/comments/{comment_id}",
             headers={"Authorization": f"Bearer {self.s.token}", "Accept": "application/vnd.github+json"},
         )
         r.raise_for_status()
