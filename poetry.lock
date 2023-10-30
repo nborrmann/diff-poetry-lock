@@ -1267,7 +1267,7 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 name = "requests-mock"
 version = "1.10.0"
 description = "Mock out responses from the requests package"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 files = [
@@ -1594,4 +1594,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "35b0e9fe495c32cd42ad484cbc8c6e0ebfc0b9444d884a9a835c0b9218a3c39d"
+content-hash = "0b42c2c4524c2d87952ad377625909c1e484405b287589bed91ecb906e982aeb"
