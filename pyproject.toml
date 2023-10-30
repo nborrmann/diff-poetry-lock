@@ -5,6 +5,9 @@ description = "A Github Action that posts a summary of all changes within the po
 authors = ["Nils Borrmann"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+diff-poetry-lock = "diff_poetry_lock.run_poetry:main"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 poetry = "^1.4.0"
