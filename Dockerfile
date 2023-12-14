@@ -1,4 +1,4 @@
-FROM python:3.11.2-slim
+FROM public.ecr.aws/docker/library/python:3.11-slim
 
 RUN pip install poetry
 RUN mkdir diff_poetry_lock
