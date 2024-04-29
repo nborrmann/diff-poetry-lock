@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "Diff poetry.lock"
-version = "1.0.0"
-description = "A Github Action that posts a summary of all changes within the poetry.lock file to a pull request"
+name = "diff-poetry-lock"
+version = "1.0.1.dev0"
+description = "A CI check that post to GitHub a summary of all changes within the poetry.lock file to a pull request"
 authors = ["Nils Borrmann"]
 readme = "README.md"
 
