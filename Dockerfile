@@ -1,6 +1,6 @@
 FROM python:3.11.2-slim
 
-RUN pip install poetry
+RUN pip install "poetry>=1,<2.0"
 RUN mkdir diff_poetry_lock
 COPY diff_poetry_lock/* ./diff_poetry_lock/
 COPY poetry.lock ./diff_poetry_lock/
