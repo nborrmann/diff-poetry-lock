@@ -12,6 +12,10 @@ inputs:
     description: "Path to the lockfile inside the repo (defaults to 'poetry.lock')"
     default: "poetry.lock"
     required: false
+  poetry_version:
+    description: "Version of poetry to use (defaults to latest)"
+    default: ""
+    required: false
 
 runs:
   using: 'docker'
